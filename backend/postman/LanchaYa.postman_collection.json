@@ -1,0 +1,158 @@
+{
+  "info": {
+    "name": "LanchaYa Iquitos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api"
+    },
+    {
+      "key": "salidaId",
+      "value": "1"
+    },
+    {
+      "key": "empresaId",
+      "value": "1"
+    },
+    {
+      "key": "codigoReserva",
+      "value": "LY-ABC123"
+    }
+  ],
+  "item": [
+    {
+      "name": "Salidas",
+      "item": [
+        {
+          "name": "Listar salidas con filtros y paginación",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/salidas?page=1&limit=6&orden=fecha&dir=asc"
+          }
+        },
+        {
+          "name": "Detalle salida",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/salidas/{{salidaId}}"
+          }
+        },
+        {
+          "name": "Crear salida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"empresa\": \"Empresa Demo\", \"embarcacion\": \"Río Demo\", \"tipo\": \"rapido\", \"destino\": \"Nauta\", \"puerto\": \"Puerto Productores\", \"fechaHora\": \"2027-01-15T07:00\", \"duracionHoras\": 2, \"precio\": 25, \"cupos\": 20}"
+            },
+            "url": "{{baseUrl}}/salidas"
+          }
+        },
+        {
+          "name": "Cambiar estado",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"estado\":\"abordando\"}"
+            },
+            "url": "{{baseUrl}}/salidas/{{salidaId}}/estado"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empresas",
+      "item": [
+        {
+          "name": "Listar empresas",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empresas"
+          }
+        },
+        {
+          "name": "Registrar empresa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"razonSocial\": \"Transportes Demo\", \"ruc\": \"20123456789\", \"telefono\": \"999111222\", \"puertoBase\": \"Puerto Henry\"}"
+            },
+            "url": "{{baseUrl}}/empresas"
+          }
+        },
+        {
+          "name": "Salidas por empresa",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empresas/{{empresaId}}/salidas"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservas",
+      "item": [
+        {
+          "name": "Crear reserva",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Pasajero Demo\", \"dni\": \"12345678\", \"telefono\": \"999111222\", \"cantidad\": 1}"
+            },
+            "url": "{{baseUrl}}/salidas/{{salidaId}}/reservas"
+          }
+        },
+        {
+          "name": "Consultar reserva",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reservas/{{codigoReserva}}"
+          }
+        },
+        {
+          "name": "Listar reservas de salida",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/salidas/{{salidaId}}/reservas"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Estadísticas",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/estadisticas"
+      }
+    }
+  ]
+}

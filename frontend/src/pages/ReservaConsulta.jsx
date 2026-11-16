@@ -1,0 +1,6 @@
+import React,{useState} from 'react';
+import {consultarReserva} from '../services/api';
+export default function ReservaConsulta(){const [codigo,setCodigo]=useState(''),[dato,setDato]=useState(null),[error,setError]=useState(''),[cargando,setCargando]=useState(false);
+ async function buscar(e){e.preventDefault();setCargando(true);setDato(null);setError('');try{setDato(await consultarReserva(codigo.trim()))}catch(e){setError(e.message)}finally{setCargando(false)}}
+ return <main className="container admin-page"><section className="listing"><h2>Consultar reserva</h2><form className="form-panel" onSubmit={buscar}><label>Código de reserva<input required placeholder="LY-4F7K2" value={codigo} onChange={e=>setCodigo(e.target.value.toUpperCase())}/></label><button className="button primary" disabled={cargando}>{cargando?'Buscando...':'Consultar'}</button></form>{error&&<p className="status error-message">{error}</p>}{dato&&<article className="card"><h3>Reserva {dato.codigo}</h3><p>Pasajero: {dato.nombre}</p><p>Destino: {dato.destino}</p><p>Empresa: {dato.empresa}</p><p>Puerto: {dato.puerto}</p><p>Fecha: {new Date(dato.fechaHora).toLocaleString('es-PE')}</p><p>Pasajes: {dato.cantidad}</p><p>Estado de salida: {dato.estado}</p></article>}</section></main>
+}
